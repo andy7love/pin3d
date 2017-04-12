@@ -1,41 +1,32 @@
 require('normalize.css/normalize.css');
-require('semantic-ui/dist/semantic.min.css');
+require('semantic-ui-css/semantic.min.css');
 require('styles/App.scss');
 
 import React from 'react';
-import { Button } from 'semantic-ui-react';
-import { Card } from 'semantic-ui-react';
+import ModelCard from './ModelCard.js';
+//import { Card } from 'semantic-ui-react';
+
+let sample1 = require('../images/sample-models/sample1.thumb.jpg');
 
 const items = [
   {
-    header: 'Project Report - April',
+    id: 1,
+    name: 'Project Report - April',
     description: 'Leverage agile frameworks to provide a robust synopsis for high level overviews.',
-    meta: 'ROI: 30%'
-  },
-  {
-    header: 'Project Report - May',
-    description: 'Bring to the table win-win survival strategies to ensure proactive domination.',
-    meta: 'ROI: 34%'
-  },
-  {
-    header: 'Project Report - June',
-    description: 'Capitalise on low hanging fruit to identify a ballpark value added activity to beta test.',
-    meta: 'ROI: 27%'
+    uploaded: '10 minutes ago',
+    image: sample1
   }
 ];
 
-let yeomanImage = require('../images/yeoman.png');
-
 class AppComponent extends React.Component {
   render() {
+    let cards = items.map(item => {
+      return <ModelCard key={item.id} name={item.name} description={item.description} uploaded={item.uploaded} image={item.image} />;
+    });
+
     return (
       <div className="index">
-        <img src={yeomanImage} alt="Yeoman Generator" />
-        <div className="notice">Please edit <code>src/components/Main.js</code> to get started!</div>
-        <Button>
-          Click Here
-        </Button>
-        <Card.Group items={items} />
+        {cards}
       </div>
     );
   }
