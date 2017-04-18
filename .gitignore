@@ -32,4 +32,5 @@ bower_components/
 # IDE/Editor data
 .idea
 
-npm-debug.log.*
+# not include debug logs
+npm-debug**
