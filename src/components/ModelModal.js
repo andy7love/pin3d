@@ -1,34 +1,57 @@
 import React from 'react'
-import { Card, Icon, Image } from 'semantic-ui-react'
+import { Image, Modal, Icon, Label } from 'semantic-ui-react'
 
-class ModelCard extends React.Component {
+export default class ModelModal extends React.Component {
+  state = {
+    open: false
+  };
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.model !== null) {
+      this.setState({
+        open: true
+      });
+    } else {
+      this.setState({
+        open: false
+      });
+    }
+  }
+
+  close = () => this.setState({ open: false });
+
   render() {
-    return <Card>
-      <Image src={this.props.image} />
-      <Card.Content>
-        <Card.Header>{this.props.name}</Card.Header>
-        <Card.Meta>{this.props.uploaded}</Card.Meta>
-        <Card.Description>{this.props.description}</Card.Description>
-      </Card.Content>
-      <Card.Content extra>
-        <a>
-          <Icon name='tag' /> 10
-        </a>
+    if(this.props.model === null)
+      return null;
 
-        <a>
-          <Icon name='comments' /> 10
-        </a>
+    return <Modal dimmer={'blurring'} open={this.state.open} onClose={this.close} closeIcon='close'>
+        <Modal.Header className="left floated">
+          {this.props.model.name}
+        </Modal.Header>
+        <Modal.Content image>
+          <Image wrapped size="large" centered src={this.props.model.image} />
+        </Modal.Content>
+        <Modal.Actions>
+          <div className="right floated">
+            <Label>
+              <Icon name='tags' color='teal' />
+              {this.props.model.tags.length}
+              <Label.Detail>Tags</Label.Detail>
+            </Label>
 
-        <a>
-          <Icon name='share alternate' /> 10
-        </a>
+            <Label>
+              <Icon name='comments' color='blue' />
+              {this.props.model.comments.length}
+              <Label.Detail>Comments</Label.Detail>
+            </Label>
 
-        <a>
-          <Icon name='star' /> 10
-        </a>
-      </Card.Content>
-    </Card>;
+            <Label>
+              <Icon name='heart' color='red' />
+              {this.props.model.likes}
+              <Label.Detail>Likes</Label.Detail>
+            </Label>
+          </div>
+        </Modal.Actions>
+      </Modal>;
   }
 }
-
-export default ModelCard

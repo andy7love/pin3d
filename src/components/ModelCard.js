@@ -1,7 +1,11 @@
 import React from 'react'
 import { Card, Icon, Image } from 'semantic-ui-react'
 
-class ModelCard extends React.Component {
+export default class ModelCard extends React.Component {
+  onClickImage() {
+    this.props.onOpenModel(this.props.model)
+  }
+
   render() {
     return <Card>
       <Card.Content>
@@ -11,7 +15,7 @@ class ModelCard extends React.Component {
         </Card.Header>
       </Card.Content>
       <div className="image">
-          <Image src={this.props.model.image} />
+          <Image src={this.props.model.thumbnail} className="cursor-pointer" onClick={this.onClickImage.bind(this)} />
       </div>
       <Card.Content>
         <Icon name="comment" />
@@ -32,5 +36,3 @@ class ModelCard extends React.Component {
     </Card>;
   }
 }
-
-export default ModelCard
